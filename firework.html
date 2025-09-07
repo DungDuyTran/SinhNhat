@@ -16,6 +16,37 @@
         overflow: hidden;
       }
 
+      /* Nút bông hoa */
+      #flowerBtn {
+        margin-bottom: 20px; /* cách xuống dưới 1 chút */
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(90deg, #ffb6c1, #ff69b4);
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+        animation: pulse 1.5s infinite;
+        transition: 0.3s;
+      }
+      #flowerBtn:hover {
+        transform: scale(1.1);
+        background: linear-gradient(90deg, #ff69b4, #ff1493);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
       /* Màn đếm ngược */
       #countdown {
         position: absolute;
@@ -53,6 +84,7 @@
         transform: translate(-50%, -50%);
         flex-direction: column;
         display: none; /* ban đầu ẩn */
+        align-items: center; /* căn giữa */
       }
 
       canvas {
@@ -92,7 +124,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 5px;
+        margin-top: 10px;
         text-align: center;
       }
     </style>
@@ -102,14 +134,18 @@
     <canvas id="fwCanvas"></canvas>
     <div id="countdown">5</div>
 
-    <!-- Trái tim + chữ -->
+    <!-- Trái tim + chữ + button -->
     <div class="box" id="heartBox">
+      <button id="flowerBtn" onclick="location.href='final.html'">
+        🌸 Lời kết 🌸
+      </button>
+
       <canvas id="pinkboard"></canvas>
       <div class="center-text">Kiếm đại za đi cho bạn được nhờ❤️</div>
     </div>
 
     <script>
-      // ================= HIỆU ỨNG PHÁO HOA (loại đẹp từ file 2) =================
+      // ================= HIỆU ỨNG PHÁO HOA =================
       const fwCanvas = document.getElementById("fwCanvas");
       const fwCtx = fwCanvas.getContext("2d");
       fwCanvas.width = innerWidth;
@@ -146,10 +182,10 @@
 
       const fireworks = [];
       const colors = [
-        "255,182,193", // hồng nhạt
-        "255,105,180", // hồng đậm
-        "255,255,255", // trắng
-        "255,223,186", // vàng cam
+        "255,182,193",
+        "255,105,180",
+        "255,255,255",
+        "255,223,186",
       ];
 
       function animateFW() {
@@ -176,7 +212,6 @@
           countdownEl.offsetHeight; // reset animation
           countdownEl.style.animation = "fadeInOut 1s ease forwards";
 
-          // bắn 1-3 pháo hoa mỗi giây
           let n = Math.floor(Math.random() * 4) + 1;
           for (let i = 0; i < n; i++) {
             const x = Math.random() * fwCanvas.width;
@@ -193,10 +228,10 @@
           count--;
         } else {
           clearInterval(interval);
-          countdownEl.style.display = "none"; // Ẩn số
-          heartBox.style.display = "flex"; // Hiện trái tim
-          fwCanvas.style.display = "flex"; // Ẩn pháo hoa khi vào tim
-          startHeart(); // gọi hàm trái tim
+          countdownEl.style.display = "none";
+          heartBox.style.display = "flex";
+          fwCanvas.style.display = "flex";
+          startHeart();
         }
       }, 1000);
 
